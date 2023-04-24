@@ -334,9 +334,3 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
-
-
-sudoku = SudokuGenerator(9,0)
-sudoku.fill_values()
-sudoku.remove_cells()
-sudoku.print_board()
