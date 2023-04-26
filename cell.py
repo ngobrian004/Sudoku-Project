@@ -12,4 +12,8 @@ class Cell:
         pass
 
     def draw(self):
-        pass
+        num_font = pygame.font.Font(None, 200)
+        num_surf = num_font.render(self.value, 0, NUM_COLOR)
+
+        num_rect = num_surf.get_rect()
+        screen.blit(num_surf, num_rect)
