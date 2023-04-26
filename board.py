@@ -1,21 +1,19 @@
 import pygame
 from constants import *
-from cell import Cell
 
 
 # Defines board class
 class Board:
-    def __init__(self, width, height, screen, difficulty):
+    def __init__(self, width, height, screen):
         self.rows = 9
         self.cols = 9
         self.width = width
         self.height = height
         self.screen = screen
         self.board = self.initialize_board()
-        self.cells = [[Cell(self.board[i][j], i, j, self.height // self.rows,
-                            self.width // self.cols) for j in range(9)] for i in range(9)]
 
     # Draws board
+
     def draw(self):
         # draw horizontal lines
         font1 = pygame.font.SysFont(None, 75)
@@ -42,7 +40,7 @@ class Board:
                     text1 = font1.render(str(self.board[i][j]), 1, (0, 0, 0))
                     self.screen.blit(text1, (j * 720 / 9 + 25, i * 720 / 9 + 20))
 
-    # Intializes board
+    # Initializes board
     def initialize_board(self):
         board = []
         for i in range(9):
@@ -59,12 +57,14 @@ class Board:
                 print(self.board[i][j], end=" ")
             print()
 
+    # Checks if the board if full
     def is_full(self):
         if any(0 in sublist for sublist in self.board):
             return False
         else:
             return True
 
+    # Checks if the board is filled correctly
     def check_board(self):
         for i in range(9):
             if len(set(self.board[i])) != 9:
