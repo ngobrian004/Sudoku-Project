@@ -71,12 +71,14 @@ def draw_game_start(screen):
                     return 50
         pygame.display.update()
 
+
 def redraw():
     screen.fill(BG_COLOR)
     board.draw()
     screen.blit(reset_surface, reset_rectangle)
     screen.blit(restart_surface, restart_rectangle)
     screen.blit(exit_surface, exit_rectangle)
+
 
 def show_square():
     redraw()
@@ -85,6 +87,8 @@ def show_square():
                          (clicked_row * dif + dif + 3, (clicked_col + i) * dif), 7)
         pygame.draw.line(screen, (255, 0, 0), ((clicked_row + i) * dif, clicked_col * dif),
                          ((clicked_row + i) * dif, clicked_col * dif + dif), 7)
+
+
 def draw_game_over(screen):
     game_over_font = pygame.font.Font(None, 40)
     screen.fill(BG_COLOR)
@@ -195,16 +199,16 @@ if __name__ == '__main__':
                     show_square()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and clicked_row is not None:
+                if event.key == pygame.K_LEFT and clicked_row is not None and clicked_row != 0:
                     clicked_row -= 1
                     show_square()
-                if event.key == pygame.K_RIGHT and clicked_row is not None:
+                if event.key == pygame.K_RIGHT and clicked_row is not None and clicked_row != 8:
                     clicked_row += 1
                     show_square()
-                if event.key == pygame.K_UP and clicked_col is not None:
+                if event.key == pygame.K_UP and clicked_col is not None and clicked_col != 0:
                     clicked_col -= 1
                     show_square()
-                if event.key == pygame.K_DOWN and clicked_col is not None:
+                if event.key == pygame.K_DOWN and clicked_col is not None and clicked_col != 8:
                     clicked_col += 1
                     show_square()
                 if event.key == pygame.K_1:
@@ -241,5 +245,21 @@ if __name__ == '__main__':
                 pygame.display.update()
                 pygame.time.delay(1000)
                 draw_game_over(screen)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_m:
+                        # Should return user to the menu
+                        difficulty = draw_game_start(screen)
+                        screen.fill(BG_COLOR)
+                        board = Board(9, 9, screen, difficulty)
+                        sudoku = sudoku_generator.generate_sudoku(9, difficulty)
+                        board.board = sudoku
+                        redraw()
+                        game_over = False
+                    if event.key == pygame.K_r:
+                        # Resets the board
+                        board.board = copy.deepcopy(sudoku)
+                        redraw()
+                        game_over = False
+
 
             pygame.display.update()
