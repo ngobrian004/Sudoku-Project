@@ -63,7 +63,7 @@ def draw_game_start(screen):
                 elif medium_rectangle.collidepoint(event.pos):
                     # Should call to generate medium game mode board
                     return
-                elif medium_rectangle.collidepoint(event.pos):
+                elif hard_rectangle.collidepoint(event.pos):
                     # Should call to generate hard game mode board
                     return
         pygame.display.update()
