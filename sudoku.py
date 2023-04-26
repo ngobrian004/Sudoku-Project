@@ -271,5 +271,4 @@ if __name__ == '__main__':
                         redraw()
                         game_over = False
 
-
             pygame.display.update()

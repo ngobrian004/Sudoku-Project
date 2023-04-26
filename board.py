@@ -2,6 +2,8 @@ import pygame
 from constants import *
 from cell import Cell
 
+
+# Defines board class
 class Board:
     def __init__(self, width, height, screen, difficulty):
         self.rows = 9
@@ -10,11 +12,10 @@ class Board:
         self.height = height
         self.screen = screen
         self.board = self.initialize_board()
-        self.cells = [[Cell(self.board[i][j], i, j, self.height//self.rows,
-                            self.width//self.cols) for j in range(9)] for i in range(9)]
+        self.cells = [[Cell(self.board[i][j], i, j, self.height // self.rows,
+                            self.width // self.cols) for j in range(9)] for i in range(9)]
 
-
-
+    # Draws board
     def draw(self):
         # draw horizontal lines
         font1 = pygame.font.SysFont(None, 75)
@@ -29,7 +30,7 @@ class Board:
         # draw horizontal box lines
         for i in range(1, 3):
             pygame.draw.line(self.screen, BOX_COLOR, (0, BOX_SIZE * i),
-                            (BOARD_WIDTH, BOX_SIZE * i), LINE_WIDTH)
+                             (BOARD_WIDTH, BOX_SIZE * i), LINE_WIDTH)
         # draw vertical box lines
         for i in range(1, 3):
             pygame.draw.line(self.screen, BOX_COLOR, (BOX_SIZE * i, 0),
@@ -37,10 +38,10 @@ class Board:
 
         for i in range(self.rows):
             for j in range(self.cols):
-                if self.board[i][j]!= 0:
+                if self.board[i][j] != 0:
                     text1 = font1.render(str(self.board[i][j]), 1, (0, 0, 0))
-                    self.screen.blit(text1, (j * 720/9 + 25, i * 720/9 + 20))
-                
+                    self.screen.blit(text1, (j * 720 / 9 + 25, i * 720 / 9 + 20))
+
     # Intializes board
     def initialize_board(self):
         board = []
@@ -56,37 +57,13 @@ class Board:
         for i, row in enumerate(self.board):
             for j, col in enumerate(row):
                 print(self.board[i][j], end=" ")
-            print()   
-            
-    def select(self, row, col):
-        pass
-    def click(self, x, y):
-        pass
-
-    def clear(self):
-        pass
-
-    def sketch(self, value):
-        pass
-
-    def place_number(self, value):
-        pass
-
-    def reset_to_original(self):
-        pass
+            print()
 
     def is_full(self):
         if any(0 in sublist for sublist in self.board):
             return False
         else:
             return True
-
-
-    def update_board(self):
-        pass
-
-    def find_empty(self):
-        pass
 
     def check_board(self):
         for i in range(9):

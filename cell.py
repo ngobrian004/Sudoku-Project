@@ -8,9 +8,6 @@ class Cell:
     def set_cell_value(self, value):
         self.value = value
 
-    def set_sketched_value(self, value):
-        pass
-
     def draw(self):
         num_font = pygame.font.Font(None, 200)
         num_surf = num_font.render(self.value, 0, NUM_COLOR)
