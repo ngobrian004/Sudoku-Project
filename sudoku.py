@@ -186,7 +186,7 @@ if __name__ == '__main__':
                     screen.fill(BG_COLOR)
                     board = Board(9, 9, screen, difficulty)
                     sudoku = sudoku_generator.generate_sudoku(9, difficulty)
-                    board.board = sudoku
+                    board.board = copy.deepcopy(sudoku)
                     redraw()
                 elif exit_rectangle.collidepoint(mouse_pos):
                     # Exits the program
@@ -229,9 +229,13 @@ if __name__ == '__main__':
                     val = 8
                 if event.key == pygame.K_9:
                     val = 9
+                if event.key == pygame.K_BACKSPACE and sudoku[clicked_col][clicked_row] == 0:
+                    # Backspace removes the number from a cell if it was not originally there
+                    board.board[clicked_col][clicked_row] = 0
+                    board.draw()
                 if event.key == pygame.K_RETURN and val is not None and board.board[clicked_col][clicked_row] == 0:
                     board.board[clicked_col][clicked_row] = val
-                    board.draw()
+                    redraw()
                     if board.is_full() is True:
                         if board.check_board():
                             winner = 1
@@ -252,7 +256,7 @@ if __name__ == '__main__':
                         screen.fill(BG_COLOR)
                         board = Board(9, 9, screen, difficulty)
                         sudoku = sudoku_generator.generate_sudoku(9, difficulty)
-                        board.board = sudoku
+                        board.board = copy.deepcopy(sudoku)
                         redraw()
                         game_over = False
                     if event.key == pygame.K_r:
