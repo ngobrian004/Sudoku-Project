@@ -73,6 +73,7 @@ def draw_game_start(screen):
 
 
 def redraw():
+    # Updates the screen
     screen.fill(BG_COLOR)
     board.draw()
     screen.blit(reset_surface, reset_rectangle)
@@ -81,12 +82,13 @@ def redraw():
 
 
 def show_square():
+    # Shows what tile is selected
     redraw()
     for i in range(2):
-        pygame.draw.line(screen, (255, 0, 0), (clicked_row * dif - 3, (clicked_col + i) * dif),
-                         (clicked_row * dif + dif + 3, (clicked_col + i) * dif), 7)
-        pygame.draw.line(screen, (255, 0, 0), ((clicked_row + i) * dif, clicked_col * dif),
-                         ((clicked_row + i) * dif, clicked_col * dif + dif), 7)
+        pygame.draw.line(screen, (255, 0, 0), (clicked_row * DIF - 3, (clicked_col + i) * DIF),
+                         (clicked_row * DIF + DIF + 3, (clicked_col + i) * DIF), 7)
+        pygame.draw.line(screen, (255, 0, 0), ((clicked_row + i) * DIF, clicked_col * DIF),
+                         ((clicked_row + i) * DIF, clicked_col * DIF + DIF), 7)
 
 
 def draw_game_over(screen):
@@ -199,6 +201,7 @@ if __name__ == '__main__':
                     show_square()
 
             if event.type == pygame.KEYDOWN:
+                # Lets you move the cursor with the arrow keys
                 if event.key == pygame.K_LEFT and clicked_row is not None and clicked_row != 0:
                     clicked_row -= 1
                     show_square()
@@ -211,6 +214,7 @@ if __name__ == '__main__':
                 if event.key == pygame.K_DOWN and clicked_col is not None and clicked_col != 8:
                     clicked_col += 1
                     show_square()
+                # Chooses what number you want to input with enter
                 if event.key == pygame.K_1:
                     val = 1
                 if event.key == pygame.K_2:
@@ -234,9 +238,11 @@ if __name__ == '__main__':
                     board.board[clicked_col][clicked_row] = 0
                     board.draw()
                 if event.key == pygame.K_RETURN and val is not None and board.board[clicked_col][clicked_row] == 0:
+                    # Adds the chosen number to the board if an empty space is selected
                     board.board[clicked_col][clicked_row] = val
                     redraw()
                     if board.is_full() is True:
+                        # If the board is full, checks if it is done correctly
                         if board.check_board():
                             winner = 1
                             game_over = True
