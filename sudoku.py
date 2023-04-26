@@ -118,7 +118,7 @@ def draw_game_over(screen):
 if __name__ == '__main__':
     game_over = False
     winner = 0
-    val = None
+    board_num = None
     clicked_col = None
     clicked_row = None
 
@@ -214,30 +214,30 @@ if __name__ == '__main__':
                     show_square()
                 # Chooses what number you want to input with enter
                 if event.key == pygame.K_1:
-                    val = 1
+                    board_num = 1
                 if event.key == pygame.K_2:
-                    val = 2
+                    board_num = 2
                 if event.key == pygame.K_3:
-                    val = 3
+                    board_num = 3
                 if event.key == pygame.K_4:
-                    val = 4
+                    board_num = 4
                 if event.key == pygame.K_5:
-                    val = 5
+                    board_num = 5
                 if event.key == pygame.K_6:
-                    val = 6
+                    board_num = 6
                 if event.key == pygame.K_7:
-                    val = 7
+                    board_num = 7
                 if event.key == pygame.K_8:
-                    val = 8
+                    board_num = 8
                 if event.key == pygame.K_9:
-                    val = 9
+                    board_num = 9
                 if event.key == pygame.K_BACKSPACE and sudoku[clicked_col][clicked_row] == 0:
                     # Backspace removes the number from a cell if it was not originally there
                     board.board[clicked_col][clicked_row] = 0
                     board.draw()
-                if event.key == pygame.K_RETURN and val is not None and board.board[clicked_col][clicked_row] == 0:
+                if event.key == pygame.K_RETURN and board_num is not None and board.board[clicked_col][clicked_row] == 0:
                     # Adds the chosen number to the board if an empty space is selected
-                    board.board[clicked_col][clicked_row] = val
+                    board.board[clicked_col][clicked_row] = board_num
                     redraw()
                     if board.is_full() is True:
                         # If the board is full, checks if it is done correctly

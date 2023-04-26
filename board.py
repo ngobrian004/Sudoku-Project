@@ -16,7 +16,7 @@ class Board:
 
     def draw(self):
         # draw horizontal lines
-        font1 = pygame.font.SysFont(None, 75)
+        board_font = pygame.font.SysFont(None, 75)
         for i in range(1, 9):
             pygame.draw.line(self.screen, LINE_COLOR, (0, SQUARE_SIZE * i),
                              (BOARD_WIDTH, SQUARE_SIZE * i), LINE_WIDTH)
@@ -37,8 +37,8 @@ class Board:
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.board[i][j] != 0:
-                    text1 = font1.render(str(self.board[i][j]), 1, (0, 0, 0))
-                    self.screen.blit(text1, (j * 720 / 9 + 25, i * 720 / 9 + 20))
+                    cell_number = board_font.render(str(self.board[i][j]), 1, (0, 0, 0))
+                    self.screen.blit(cell_number, (j * 720 / 9 + 25, i * 720 / 9 + 20))
 
     # Initializes board
     def initialize_board(self):
