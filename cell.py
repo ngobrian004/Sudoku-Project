@@ -1,5 +1,5 @@
 class Cell:
-    def __init__(self, value, row, col, screen):
+    def __init__(self, value, row, col, screen, x):
         self.value = value
         self.row = row
         self.col = col

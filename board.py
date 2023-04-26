@@ -4,17 +4,20 @@ from cell import Cell
 
 class Board:
     def __init__(self, width, height, screen, difficulty):
-        self.rows = rows
-        self.cols = cols
+        self.rows = 9
+        self.cols = 9
         self.width = width
         self.height = height
         self.screen = screen
         self.board = self.initialize_board()
         self.cells = [[Cell(self.board[i][j], i, j, self.height//self.rows,
-                            self.width//self.cols) for j in range(cols)] for i in range(rows)]
+                            self.width//self.cols) for j in range(9)] for i in range(9)]
+
+
 
     def draw(self):
         # draw horizontal lines
+        font1 = pygame.font.SysFont(None, 75)
         for i in range(1, 9):
             pygame.draw.line(self.screen, LINE_COLOR, (0, SQUARE_SIZE * i),
                              (BOARD_WIDTH, SQUARE_SIZE * i), LINE_WIDTH)
@@ -34,7 +37,9 @@ class Board:
 
         for i in range(self.rows):
             for j in range(self.cols):
-                self.cells[i][j].draw(self.screen)
+                if self.board[i][j]!= 0:
+                    text1 = font1.render(str(self.board[i][j]), 1, (0, 0, 0))
+                    self.screen.blit(text1, (j * 720/9 + 25, i * 720/9 + 20))
                 
     # Intializes board
     def initialize_board(self):
@@ -45,7 +50,7 @@ class Board:
                 row.append("-")
             board.append(row)
         return board
-    
+
     # Prints board
     def print_board(self):
         for i, row in enumerate(self.board):
@@ -55,7 +60,6 @@ class Board:
             
     def select(self, row, col):
         pass
-
     def click(self, x, y):
         pass
 
@@ -72,7 +76,11 @@ class Board:
         pass
 
     def is_full(self):
-        pass
+        if any(0 in sublist for sublist in self.board):
+            return False
+        else:
+            return True
+
 
     def update_board(self):
         pass
@@ -81,4 +89,19 @@ class Board:
         pass
 
     def check_board(self):
-        pass
+        for i in range(9):
+            if len(set(self.board[i])) != 9:
+                return False
+        for i in range(9):
+            col = [item[i] for item in self.board]
+            if len(set(col)) != 9:
+                return False
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                vals = self.board[i][j: j + 3]
+                vals.extend(self.board[i + 1][j: j + 3])
+                vals.extend(self.board[i + 2][j: j + 3])
+            if len(set(vals)) != 9:
+                return False
+        else:
+            return True
