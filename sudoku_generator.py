@@ -69,7 +69,7 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    # Converts the row into a set and checks if the num is in the set
+
     def valid_in_row(self, row, num):
         numrow = set(self.board[row])
         if num in numrow:

@@ -1,5 +1,4 @@
 import pygame, sys, copy
-
 import sudoku_generator
 from constants import *
 from board import Board
@@ -133,7 +132,7 @@ if __name__ == '__main__':
     # draw_lines()
     # middle_cell = Cell('o', 1, 1, 200, 200)
     # middle_cell.draw(screen)
-    board = Board(9, 9, screen, difficulty)
+    board = Board(9, 9, screen)
     sudoku = sudoku_generator.generate_sudoku(9, difficulty)
     board.board = copy.deepcopy(sudoku)
     # board.print_board()
@@ -186,7 +185,7 @@ if __name__ == '__main__':
                     # Should return user to the menu
                     difficulty = draw_game_start(screen)
                     screen.fill(BG_COLOR)
-                    board = Board(9, 9, screen, difficulty)
+                    board = Board(9, 9, screen)
                     sudoku = sudoku_generator.generate_sudoku(9, difficulty)
                     board.board = copy.deepcopy(sudoku)
                     redraw()
@@ -196,7 +195,6 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
                 clicked_col = int(mouse_pos[1] / SQUARE_SIZE)
                 clicked_row = int(mouse_pos[0] / SQUARE_SIZE)
-                print(clicked_row, clicked_col)
                 if clicked_col < 9:
                     show_square()
 
@@ -260,7 +258,7 @@ if __name__ == '__main__':
                         # Should return user to the menu
                         difficulty = draw_game_start(screen)
                         screen.fill(BG_COLOR)
-                        board = Board(9, 9, screen, difficulty)
+                        board = Board(9, 9, screen)
                         sudoku = sudoku_generator.generate_sudoku(9, difficulty)
                         board.board = copy.deepcopy(sudoku)
                         redraw()
@@ -270,6 +268,5 @@ if __name__ == '__main__':
                         board.board = copy.deepcopy(sudoku)
                         redraw()
                         game_over = False
-
 
             pygame.display.update()
